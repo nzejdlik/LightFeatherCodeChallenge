@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using LightFeatherCodeChallenge.Data;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
 namespace LightFeatherCodeChallenge.Controllers
@@ -20,7 +19,7 @@ namespace LightFeatherCodeChallenge.Controllers
 			baseUrl = options.Value.BaseUrl;
 		}
 
-		[HttpGet("api/supervisor")]
+		[HttpGet("api/supervisors")]
 		public async Task<string> GetSupervisors()
 		{ 
 			using var client = new HttpClient();
@@ -36,6 +35,7 @@ namespace LightFeatherCodeChallenge.Controllers
 			return String.Join(
 				Environment.NewLine,
 				supervisors
+					.Where(x => !Int32.TryParse(x.Jurisdiction, out _))
 					.OrderBy(x => x.Jurisdiction)
 					.ThenBy(x => x.LastName)
 					.ThenBy(x => x.FirstName)

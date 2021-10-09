@@ -19,6 +19,6 @@ namespace LightFeatherCodeChallenge.Data
 		public string? PhoneNumber { get; set; }
 
 		[Required]
-		public string? Supervisor { get; set; }
+		public int? Supervisor { get; set; }
 	}
 }
